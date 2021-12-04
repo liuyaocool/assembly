@@ -21,7 +21,44 @@
 ## winxp
 
 - link.exe masm.exe 拷贝到xp（可加环境变量快速启动）
+
 - 安装 sublime text 32位编辑器
+
+  - 插件: NASM x86 Assembly
+
+  - Assembly.sublime-build
+
+    ```
+    {
+        "cmd": ["C:/newpath/assembly.bat", "$file_base_name"],
+        "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+        "selector": "source.asm",
+        "encoding":"cp936",
+        "variants":  
+         [   
+              {
+                    "name": "Run_ASM", 
+                    "cmd": ["C:/newpath/assembly.bat", "$file_base_name"],
+                    "shell":true
+              }
+         ]  
+    }
+    ```
+
+  - assembly.bat
+
+    ```
+    @echo off
+    del %~nx1.EXE;
+    masm %~n1.asm;
+    echo masm finished
+    link %~n1.OBJ;
+    echo link finished
+    del %~n1.OBJ;
+    start cmd /c debug %~n1.exe
+    ```
+
+    
 
 # 数制转换
 
